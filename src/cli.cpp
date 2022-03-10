@@ -8,6 +8,7 @@
 
 #ifdef _WIN32
 #include <Windows.h>
+#undef max // Good read: https://www.tilander.org/aurora2/Include_Windows.h/index.html, TLDR: Fuck the Windows header
 #endif
 
 namespace cli

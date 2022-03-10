@@ -30,7 +30,7 @@ void embed_file(const fs::path &path, const fs::path &out_path, std::vector<file
 
     try
     {
-        auto extension = file_name.extension();
+        auto extension = file_name.extension().string();
         if (!mimes.count(extension))
         {
             std::cerr << ansi::error_indicator << "Could not deduce mime-type for: " << ansi::bold << file_name << ansi::reset << std::endl;
@@ -63,7 +63,7 @@ void embed_file(const fs::path &path, const fs::path &out_path, std::vector<file
         out << "};" << std::endl;
         out.close();
 
-        files.emplace_back(file{final_path, mimes.at(extension), buffer.size(), file_name, formatted_name});
+        files.emplace_back(file{final_path, mimes.at(extension), buffer.size(), file_name.string(), formatted_name});
         std::cout << ansi::success_indicator << "Embedded " << ansi::bold << (out_path / (file_name.string() + ".hpp")) << ansi::reset << " with mime-type " << ansi::bold
                   << files.back().mime << ansi::reset << std::endl;
     }
