@@ -13,7 +13,7 @@
 <div align="center"> 
     
 This project hosts the source code of the cli utility.  
-For more information see [our documentation](https://saucer.github.io/getting-started/embedding/).
+For more information see [our documentation](https://saucer.github.io/).
 
 ### Installation
 
