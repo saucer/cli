@@ -50,7 +50,7 @@ void embed_file(const fs::path &path, const fs::path &out_path, std::vector<file
         std::replace(formatted_name.begin(), formatted_name.end(), ' ', '_');
 
         out << "#pragma once" << std::endl;
-        out << "constexpr unsigned char embedded_" << formatted_name << "[" + std::to_string(buffer.size()) + "] = {";
+        out << "inline constexpr unsigned char embedded_" << formatted_name << "[" + std::to_string(buffer.size()) + "] = {";
 
         for (auto byte_it = buffer.begin(); byte_it != buffer.end(); byte_it++)
         {
@@ -139,6 +139,10 @@ int main(int argc, char **argv)
     embed->add(std::make_unique<cli::regex_item>(
         "[File/Folder]...", std::regex(".*"), "Generate the embedding headers for the specified <files/folders>",
         [&](const std::filesystem::path &path) {
+            if (!fs::exists(output_path))
+            {
+                fs::create_directory(output_path);
+            }
             if (fs::is_directory(path))
             {
                 for (const auto &file : fs::recursive_directory_iterator(path))
