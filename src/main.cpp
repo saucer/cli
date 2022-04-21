@@ -68,6 +68,7 @@ int main(int argc, char **argv)
                         }
                         else
                         {
+                            std::cerr << ansi::error_indicator << ansi::bold << path << ansi::reset << " is neither folder nor file" << std::endl;
                             return cli::error_t::bad_arguments;
                         }
                     }
@@ -87,8 +88,10 @@ int main(int argc, char **argv)
                     files.emplace_back(*embedded_file);
                     return cli::error_t::none;
                 }
-
-                return cli::error_t::bad_arguments;
+            }
+            else
+            {
+                std::cerr << ansi::error_indicator << ansi::bold << path << ansi::reset << " is neither folder nor file" << std::endl;
             }
 
             return cli::error_t::bad_arguments;
@@ -102,7 +105,10 @@ int main(int argc, char **argv)
 
     if (!error && !files.empty())
     {
-        cli::embed::write_files(files, output_path);
+        if (!cli::embed::write_files(files, output_path))
+        {
+            return 1;
+        }
     }
 
     return error;

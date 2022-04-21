@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <filesystem>
 #include <iostream>
+#include <cstring>
 #include <fstream>
 
 namespace cli::embed
@@ -49,7 +50,7 @@ namespace cli::embed
         return std::nullopt;
     }
 
-    void file::write(const fs::path &path) const
+    bool file::write(const fs::path &path) const
     {
         try
         {
@@ -58,6 +59,8 @@ namespace cli::embed
                       << ansi::bold << m_mime << std::endl;
 
             std::ofstream out(final_path);
+            out.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
             out << "#pragma once" << std::endl;
             out << "inline constexpr unsigned char embedded_" << m_formatted_name << "[" + std::to_string(m_buffer.size()) + "] = {";
 
@@ -73,18 +76,23 @@ namespace cli::embed
 
             out << "};" << std::endl;
             out.close();
+
+            return true;
         }
-        catch (const std::exception &ex)
+        catch (const std::ios_base::failure &)
         {
-            std::cerr << "Failed to embed file " << ansi::bold << path << ansi::reset << ": " << ex.what() << std::endl;
+            // NOLINTNEXTLINE
+            std::cerr << ansi::error_indicator << "Failed to embed file " << ansi::bold << path << ansi::reset << ": " << strerror(errno) << std::endl;
         }
         catch (...)
         {
-            std::cerr << "Failed to embed file " << ansi::bold << path << ansi::reset << ": <Unknown Error>" << std::endl;
+            std::cerr << ansi::error_indicator << "Failed to embed file " << ansi::bold << path << ansi::reset << ": <Unknown Error>" << std::endl;
         }
+
+        return false;
     }
 
-    void write_files(const std::vector<file> &files, const fs::path &out_path)
+    bool write_files(const std::vector<file> &files, const fs::path &out_path)
     {
         if (!fs::exists(out_path))
         {
@@ -93,36 +101,57 @@ namespace cli::embed
 
         for (const auto &file : files)
         {
-            file.write(out_path);
+            auto success = file.write(out_path);
+            if (!success)
+            {
+                return false;
+            }
         }
 
-        std::ofstream all(out_path / "all.hpp");
-        all << "#pragma once" << std::endl;
-        all << "#include <map>" << std::endl;
-        all << "#include <tuple>" << std::endl;
-        all << "#include <string>" << std::endl;
-        all << "#include <webview.hpp>" << std::endl << std::endl;
-
-        for (const auto &file : files)
+        try
         {
-            all << "#include \"" << file.m_file_name << ".hpp\"" << std::endl;
+            std::ofstream all(out_path / "all.hpp");
+            all.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+            all << "#pragma once" << std::endl;
+            all << "#include <map>" << std::endl;
+            all << "#include <tuple>" << std::endl;
+            all << "#include <string>" << std::endl;
+            all << "#include <webview.hpp>" << std::endl << std::endl;
+
+            for (const auto &file : files)
+            {
+                all << "#include \"" << file.m_file_name << ".hpp\"" << std::endl;
+            }
+
+            all << std::endl;
+            all << "namespace embedded {" << std::endl;
+            all << "\tinline auto get_all_files() {" << std::endl;
+            all << "\t\tstd::map<const std::string, const saucer::embedded_file> rtn;" << std::endl;
+
+            for (const auto &file : files)
+            {
+                all << "\t\trtn.emplace(\"" << file.m_file_name << "\", saucer::embedded_file{\"" << file.m_mime << "\", " << file.m_buffer.size() << ", embedded_"
+                    << file.m_formatted_name << "});" << std::endl;
+            }
+
+            all << "\t\treturn rtn;" << std::endl;
+            all << "\t}" << std::endl << "} // namespace embedded";
+            all.close();
+
+            std::cout << ansi::success_indicator << "Embedded " << ansi::bold << files.size() << ansi::reset << " file(s)" << std::endl;
+            return true;
         }
-
-        all << std::endl;
-        all << "namespace embedded {" << std::endl;
-        all << "\tinline auto get_all_files() {" << std::endl;
-        all << "\t\tstd::map<const std::string, const saucer::embedded_file> rtn;" << std::endl;
-
-        for (const auto &file : files)
+        catch (const std::ios_base::failure &)
         {
-            all << "\t\trtn.emplace(\"" << file.m_file_name << "\", saucer::embedded_file{\"" << file.m_mime << "\", " << file.m_buffer.size() << ", embedded_"
-                << file.m_formatted_name << "});" << std::endl;
+            // NOLINTNEXTLINE
+            std::cerr << ansi::error_indicator << "Failed to write embedding files: " << strerror(errno) << std::endl;
+        }
+        catch (...)
+        {
+            std::cerr << ansi::error_indicator << "Failed to write embedding files: <Unknown Error>" << std::endl;
         }
 
-        all << "\t\treturn rtn;" << std::endl;
-        all << "\t}" << std::endl << "} // namespace embedded";
-        all.close();
-
-        std::cout << ansi::success_indicator << "Embedded " << ansi::bold << files.size() << ansi::reset << " file(s)" << std::endl;
+        return false;
     }
 } // namespace cli::embed
