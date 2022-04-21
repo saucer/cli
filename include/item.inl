@@ -79,9 +79,9 @@ namespace cli
             {
                 typename traits::args_t args{};
                 detail::to_tuple(args, params);
-                if constexpr (std::is_same_v<typename traits::return_t, bool>)
+                if constexpr (std::is_same_v<typename traits::return_t, error_t>)
                 {
-                    return std::apply([callback](auto &&...args) { callback(args...); }, args);
+                    return std::apply([callback](auto &&...args) { return callback(args...); }, args);
                 }
                 else
                 {
