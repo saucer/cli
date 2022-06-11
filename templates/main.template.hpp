@@ -1,8 +1,8 @@
 #pragma once
 
 constexpr auto main_template = R"cpp(
-#include <smartview.hpp>
-#include <serializers/json.hpp>
+#include <saucer/smartview.hpp>
+#include <saucer/serializers/json.hpp>
 
 int main()
 {

@@ -117,7 +117,7 @@ namespace cli::embed
             all << "#include <map>" << std::endl;
             all << "#include <tuple>" << std::endl;
             all << "#include <string>" << std::endl;
-            all << "#include <webview.hpp>" << std::endl << std::endl;
+            all << "#include <saucer/webview.hpp>" << std::endl << std::endl;
 
             for (const auto &file : files)
             {
