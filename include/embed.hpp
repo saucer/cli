@@ -23,7 +23,7 @@ namespace cli::embed
         bool write(const fs::path &path) const;
 
       public:
-        static std::optional<file> from(const fs::path &);
+        static std::optional<file> from(const fs::path &, const fs::path &);
     };
 
     bool write_files(const std::vector<file> &files, const fs::path &out_path);

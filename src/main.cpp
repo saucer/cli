@@ -45,15 +45,15 @@ int main(int argc, char **argv)
         },
         std::vector<std::string>{"name"}));
 
-    auto embed_menu = std::make_unique<cli::menu>("embed", "Embed files and folders");
+    auto embed_menu = std::make_unique<cli::menu>("embed", "Embed selected folder");
     fs::path output_path{fs::current_path() / "embedding"};
-    std::vector<cli::embed::file> files;
+    std::vector<cli::embed::file> embed_files;
 
     embed_menu->add(std::make_unique<cli::item>(
         "output", "Set the output directory to <path>", [&](const std::filesystem::path &path) { output_path = path; }, std::vector<std::string>{"path"}));
 
     embed_menu->add(std::make_unique<cli::regex_item>(
-        "[File/Folder]...", std::regex(".*"), "Generate the embedding headers for the specified <files/folders>",
+        "[Folder]", std::regex(".*"), "Generate the embedding headers for the specified folder",
         [&](const fs::path &path) {
             if (fs::is_directory(path))
             {
@@ -61,10 +61,10 @@ int main(int argc, char **argv)
                 {
                     if (file.is_regular_file())
                     {
-                        auto embedded_file = cli::embed::file::from(file);
+                        auto embedded_file = cli::embed::file::from(file, path);
                         if (embedded_file)
                         {
-                            files.emplace_back(*embedded_file);
+                            embed_files.emplace_back(*embedded_file);
                         }
                         else
                         {
@@ -74,26 +74,13 @@ int main(int argc, char **argv)
                     }
                 }
 
-                if (!files.empty())
+                if (!embed_files.empty())
                 {
                     return cli::error_t::none;
                 }
             }
 
-            if (fs::is_regular_file(path))
-            {
-                auto embedded_file = cli::embed::file::from(path);
-                if (embedded_file)
-                {
-                    files.emplace_back(*embedded_file);
-                    return cli::error_t::none;
-                }
-            }
-            else
-            {
-                std::cerr << ansi::error_indicator << ansi::bold << path << ansi::reset << " is neither folder nor file" << std::endl;
-            }
-
+            std::cerr << ansi::error_indicator << ansi::bold << path << ansi::reset << " is not a folder" << std::endl;
             return cli::error_t::bad_arguments;
         },
         std::vector<std::string>{}));
@@ -103,9 +90,9 @@ int main(int argc, char **argv)
     cli::session session(std::move(root));
     auto error = session.start(argc, argv);
 
-    if (!error && !files.empty())
+    if (!error && !embed_files.empty())
     {
-        if (!cli::embed::write_files(files, output_path))
+        if (!cli::embed::write_files(embed_files, output_path))
         {
             return 1;
         }

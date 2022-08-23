@@ -10,10 +10,10 @@
 
 namespace cli::embed
 {
-    std::optional<file> file::from(const fs::path &path)
+    std::optional<file> file::from(const fs::path &path, const fs::path &root)
     {
         file rtn;
-        rtn.m_file_name = path.filename().string();
+        rtn.m_file_name = fs::relative(path, root).string();
 
         try
         {
@@ -31,7 +31,8 @@ namespace cli::embed
             rtn.m_buffer = {std::istreambuf_iterator<char>(original_file), {}};
             original_file.close();
 
-            rtn.m_formatted_name = path.filename().string();
+            rtn.m_formatted_name = fs::relative(path, root).string();
+            std::replace(rtn.m_formatted_name.begin(), rtn.m_formatted_name.end(), '/', '_');
             std::replace(rtn.m_formatted_name.begin(), rtn.m_formatted_name.end(), '.', '_');
             std::replace(rtn.m_formatted_name.begin(), rtn.m_formatted_name.end(), '-', '_');
             std::replace(rtn.m_formatted_name.begin(), rtn.m_formatted_name.end(), ' ', '_');
@@ -55,8 +56,14 @@ namespace cli::embed
         try
         {
             auto final_path = path / (m_file_name + ".hpp");
+
+            if (!fs::exists(final_path.parent_path()))
+            {
+                fs::create_directory(final_path.parent_path());
+            }
+
             std::cout << ansi::success_indicator << "Embedding " << ansi::bold << m_file_name << ansi::reset << " to " << ansi::bold << final_path << ansi::reset << " with mime "
-                      << ansi::bold << m_mime << std::endl;
+                      << ansi::bold << m_mime << ansi::reset << std::endl;
 
             std::ofstream out(final_path);
             out.exceptions(std::ifstream::failbit | std::ifstream::badbit);
