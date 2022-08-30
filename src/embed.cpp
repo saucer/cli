@@ -2,11 +2,12 @@
 #include "embed.hpp"
 #include "mimes.hpp"
 
-#include <algorithm>
 #include <filesystem>
+#include <algorithm>
 #include <iostream>
 #include <cstring>
 #include <fstream>
+#include <regex>
 
 namespace cli::embed
 {
@@ -14,6 +15,7 @@ namespace cli::embed
     {
         file rtn;
         rtn.m_file_name = fs::relative(path, root).string();
+        rtn.m_file_name = std::regex_replace(rtn.m_file_name, std::regex{R"(\\)"}, "/");
 
         try
         {
@@ -32,10 +34,7 @@ namespace cli::embed
             original_file.close();
 
             rtn.m_formatted_name = fs::relative(path, root).string();
-            std::replace(rtn.m_formatted_name.begin(), rtn.m_formatted_name.end(), '/', '_');
-            std::replace(rtn.m_formatted_name.begin(), rtn.m_formatted_name.end(), '.', '_');
-            std::replace(rtn.m_formatted_name.begin(), rtn.m_formatted_name.end(), '-', '_');
-            std::replace(rtn.m_formatted_name.begin(), rtn.m_formatted_name.end(), ' ', '_');
+            rtn.m_formatted_name = std::regex_replace(rtn.m_formatted_name, std::regex{R"([\/. \\-])"}, "_");
 
             return rtn;
         }
@@ -59,7 +58,7 @@ namespace cli::embed
 
             if (!fs::exists(final_path.parent_path()))
             {
-                fs::create_directory(final_path.parent_path());
+                fs::create_directories(final_path.parent_path());
             }
 
             std::cout << ansi::success_indicator << "Embedding " << ansi::bold << m_file_name << ansi::reset << " to " << ansi::bold << final_path << ansi::reset << " with mime "
@@ -90,6 +89,10 @@ namespace cli::embed
         {
             // NOLINTNEXTLINE
             std::cerr << ansi::error_indicator << "Failed to embed file " << ansi::bold << path << ansi::reset << ": " << strerror(errno) << std::endl;
+        }
+        catch (const std::exception &ex)
+        {
+            std::cerr << ansi::error_indicator << "Failed to embed file " << ansi::bold << path << ansi::reset << ": " << ex.what() << std::endl;
         }
         catch (...)
         {
