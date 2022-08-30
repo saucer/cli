@@ -68,9 +68,13 @@ int main(int argc, char **argv)
                         }
                         else
                         {
-                            std::cerr << ansi::error_indicator << ansi::bold << path << ansi::reset << " is neither folder nor file" << std::endl;
                             return cli::error_t::bad_arguments;
                         }
+                    }
+                    else if (!file.is_directory())
+                    {
+                        std::cerr << ansi::error_indicator << ansi::bold << path << ansi::reset << " is neither folder nor file" << std::endl;
+                        return cli::error_t::bad_arguments;
                     }
                 }
 
@@ -79,8 +83,11 @@ int main(int argc, char **argv)
                     return cli::error_t::none;
                 }
             }
+            else
+            {
+                std::cerr << ansi::error_indicator << ansi::bold << path << ansi::reset << " is not a folder" << std::endl;
+            }
 
-            std::cerr << ansi::error_indicator << ansi::bold << path << ansi::reset << " is not a folder" << std::endl;
             return cli::error_t::bad_arguments;
         },
         std::vector<std::string>{}));
