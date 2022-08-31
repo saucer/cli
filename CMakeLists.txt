@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1)
-project(saucer-cli LANGUAGES CXX VERSION 1.3)
+project(saucer-cli LANGUAGES CXX VERSION 1.6)
 
 # --------------------------------------------------------------------------------------------------------
 # Create library
