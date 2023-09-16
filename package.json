@@ -1,19 +1,26 @@
 {
 	"name": "saucer-app",
-	"version": "4.0.1",
+	"version": "4.0.2",
 	"license": "MIT",
 	"type": "module",
+	"homepage": "https://github.com/saucer/saucer-cli/",
 	"engines": {
 		"node": ">=16"
 	},
+	"bugs": {
+		"url": "https://github.com/saucer/saucer-cli/issues"
+	},
 	"scripts": {
-		"build": "tsc",
+		"build": "tsc && chmod +x dist/cli.js",
 		"dev": "tsc --watch",
 		"test": "prettier --check . && tsc"
 	},
 	"bin": {
 		"saucer": "dist/cli.js"
 	},
+	"files": [
+		"dist"
+	],
 	"dependencies": {
 		"commander": "^11.0.0",
 		"figures": "^5.0.0",
