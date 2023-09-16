@@ -1,3 +1,0 @@
-#cmakedefine COMPILER "@COMPILER@"
-#cmakedefine VERSION "@VERSION@"
-#cmakedefine ARCH "@ARCH@"
