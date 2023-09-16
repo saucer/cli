@@ -37,10 +37,10 @@ For example in your `package.json`:
 
 ```json
 {
-	// ...
-    "scripts": {
-		"build": "<deploy normally> && saucer embed dist"
-	}
+  // ...
+  "scripts": {
+    "build": "<deploy normally> && saucer embed dist"
+  }
 }
 ```
 
