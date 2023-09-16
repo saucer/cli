@@ -13,7 +13,7 @@
 <div align="center"> 
     
 This project hosts the source code of the command line utility.  
-For more information see [our documentation](https://saucer.github.io/).
+For more information see [our documentation](https://saucer.github.io/docs/getting-started/embedding).
 
 </div> 
 
