@@ -1,7 +1,12 @@
 {
 	"name": "saucer-app",
+	"description": "A CLI utility for saucer",
+	"keywords": [
+		"saucer"
+	],
 	"version": "4.0.3",
 	"license": "MIT",
+	"author": "Curve (https://github.com/Curve)",
 	"type": "module",
 	"homepage": "https://github.com/saucer/saucer-cli/",
 	"engines": {
@@ -40,5 +45,13 @@
 		"eslint": "^8.49.0",
 		"eslint-plugin-react": "^7.32.2",
 		"eslint-plugin-react-hooks": "^4.6.0"
+	},
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/saucer/saucer-cli.git"
 	}
 }
