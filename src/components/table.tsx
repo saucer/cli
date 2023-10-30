@@ -1,7 +1,7 @@
-import { Box, BoxProps, Text, TextProps } from "ink";
-import colors from "../utils/colors.js";
 import figureSet from "figures";
-import { ReactNode } from "react";
+import { Box, BoxProps, Text, TextProps } from "ink";
+import { Key, ReactNode } from "react";
+import colors from "../utils/colors.js";
 
 function unique<T>(array: T[])
 {
@@ -66,7 +66,7 @@ export function Table({ data, distribution, color, ...props }: { data: any[], di
         return rtn;
     };
 
-    const Cell = ({ key, index, children }: {key: string, index: number, children: ReactNode}) =>
+    const Cell = ({ key, index, children }: {key: Key, index: number, children: ReactNode}) =>
         <Box key={key} marginX={1} {...cell_style(index)} width={width(index)}>
             {children}
         </Box>;
