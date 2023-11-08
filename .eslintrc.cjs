@@ -20,7 +20,7 @@ module.exports = {
         ecmaVersion: "latest",
         sourceType : "module",
     },
-    plugins: ["@typescript-eslint", "react"],
+    plugins: ["@typescript-eslint", "react", "eslint-plugin-neverthrow"],
     rules  : {
         "object-curly-spacing"              : ["error", "always"],
         "brace-style"                       : ["error", "allman"],

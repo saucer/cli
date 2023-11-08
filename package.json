@@ -1,10 +1,10 @@
 {
 	"name": "saucer-app",
-	"description": "A CLI utility for saucer",
+	"description": "🛸 A command-line utility for saucer",
 	"keywords": [
 		"saucer"
 	],
-	"version": "4.0.5",
+	"version": "4.1.0",
 	"license": "MIT",
 	"author": "Curve (https://github.com/Curve)",
 	"type": "module",
@@ -16,21 +16,25 @@
 		"url": "https://github.com/saucer/saucer-cli/issues"
 	},
 	"scripts": {
-		"build": "tsc && chmod +x dist/cli.js"
+		"build": "tsc",
+		"build:executable": "pnpm run build && chmod +x dist/index.js && cp -r src/templates dist"
 	},
 	"bin": {
-		"saucer": "dist/cli.js"
+		"saucer": "dist/index.js"
 	},
 	"files": [
 		"dist"
 	],
 	"dependencies": {
 		"commander": "^11.0.0",
+		"eslint-plugin-neverthrow": "^1.1.4",
+		"eta": "^3.1.1",
 		"figures": "^5.0.0",
 		"fs-extra": "^11.1.1",
 		"ink": "^4.1.0",
 		"ink-spinner": "^5.0.0",
 		"mime-types": "^2.1.35",
+		"neverthrow": "^6.1.0",
 		"react": "^18.2.0",
 		"typescript": "^5.0.3"
 	},
