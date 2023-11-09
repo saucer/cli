@@ -1,10 +1,21 @@
 {
-	"extends": "@sindresorhus/tsconfig",
 	"compilerOptions": {
+		"outDir": "build",
+		"target": "ESNext",
+		"module": "NodeNext",
+		"lib": [
+			"dom",
+			"ES2023",
+		],
+		"strict": true,
+		"strictNullChecks": true,
 		"jsx": "react-jsx",
-		"outDir": "dist",
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"moduleResolution": "NodeNext",
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"skipDefaultLibCheck": true,
 	},
-	"include": [
-		"src",
-	]
 }

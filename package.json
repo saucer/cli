@@ -4,7 +4,7 @@
 	"keywords": [
 		"saucer"
 	],
-	"version": "4.1.1",
+	"version": "4.2.0",
 	"license": "MIT",
 	"author": "Curve (https://github.com/Curve)",
 	"type": "module",
@@ -17,13 +17,15 @@
 	},
 	"scripts": {
 		"build": "tsc",
-		"build:executable": "pnpm run build && chmod +x dist/index.js && cp -r src/templates dist"
+		"copy": "cp -r src/templates build",
+		"bundle": "pnpm run build && pnpm run copy",
+		"bundle:executable": "pnpm run bundle && chmod +x build/index.js"
 	},
 	"bin": {
-		"saucer": "dist/index.js"
+		"saucer": "build/index.js"
 	},
 	"files": [
-		"dist"
+		"build"
 	],
 	"dependencies": {
 		"commander": "^11.0.0",
@@ -41,6 +43,7 @@
 	"devDependencies": {
 		"@sindresorhus/tsconfig": "^3.0.1",
 		"@types/fs-extra": "^11.0.2",
+		"@types/ink-spinner": "^3.0.4",
 		"@types/mime-types": "^2.1.1",
 		"@types/node": "^20.6.1",
 		"@types/react": "^18.0.32",

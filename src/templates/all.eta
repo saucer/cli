@@ -13,9 +13,9 @@ namespace saucer::embedded
     {
         std::map<std::string, embedded_file> rtn;
 
-        <% it.files.forEach(function(file){ %>
+<% it.files.forEach(function(file){ %>
         rtn.emplace("<%= file.path %>", embedded_file{"<%= file.mime %>", <%= file.name %>);
-        <% }) %>
+<% }) %>
 
         return rtn;
     }

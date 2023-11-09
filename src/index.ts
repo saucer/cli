@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { program } from "commander";
-import { embed } from "./embed.js";
+import { embed } from "./commands/embed.js";
 
 program.command("embed")
     .description("Generate embedding headers for given files")

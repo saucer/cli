@@ -1,6 +1,6 @@
 import { existsSync, lstatSync, readFileSync } from "fs";
-import mimes from "mime-types";
 import { Result, err, ok } from "neverthrow";
+import mimes from "mime-types";
 
 export interface File
 {

@@ -27,7 +27,7 @@ jobs:
           run_install: false
 
       - name: 🔨 Build
-        run: "pnpm install && pnpm run build:executable"
+        run: "pnpm install && pnpm run bundle:executable"
 
       - name: 🛒 Publish
         run: pnpm publish --no-git-checks

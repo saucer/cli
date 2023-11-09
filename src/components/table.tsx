@@ -1,14 +1,21 @@
 import figureSet from "figures";
 import { Box, BoxProps, Text, TextProps } from "ink";
 import { ReactNode } from "react";
-import colors from "../utils/colors.js";
+import theme from "../theme/index.js";
 
 function unique<T>(array: T[])
 {
     return [...new Set(array)];
 }
 
-export function Table({ data, distribution, color, ...props }: { data: any[], distribution: number[], color?: TextProps["color"][] } & BoxProps)
+interface TableProps extends BoxProps
+{
+    data: any[];
+    distribution: number[];
+    colors?: TextProps["color"][];
+}
+
+export function Table({ data, distribution, colors, ...props }: TableProps)
 {
     const headers = unique(data.map(item => Object.keys(item)).flat());
     const width = (index: number) => `${distribution[index]}%`;
@@ -48,34 +55,38 @@ export function Table({ data, distribution, color, ...props }: { data: any[], di
     {
         const rtn = { ...style, borderBottom: false };
 
-        if (headers.length <= 1)
+        if (headers.length > 1 && index < headers.length - 1)
         {
-            return rtn;
-        }
-
-        switch (index)
-        {
-        default:
-        case 0:
             rtn.borderRight = true;
-            break;
-        case (headers.length - 1):
-            break;
         }
 
         return rtn;
     };
 
     const Cell = ({ index, children }: { index: number, children: ReactNode}) =>
-        <Box marginX={1} {...cell_style(index)} width={width(index)}>
+        <Box
+            marginX={1}
+            width={width(index)}
+            {...cell_style(index)}
+        >
             {children}
         </Box>;
 
-    return <Box flexDirection="column" borderStyle={border} {...props}>
+    return <Box
+        flexDirection="column"
+        borderStyle={border}
+        {...props}
+    >
         <Box {...style}>
             {headers.map((header, index) =>
-                <Cell key={header} index={index}>
-                    <Text color={colors.purple} bold>
+                <Cell
+                    key={header}
+                    index={index}
+                >
+                    <Text
+                        color={theme.colors.purple}
+                        bold
+                    >
                         {header}
                     </Text>
                 </Cell>
@@ -83,10 +94,16 @@ export function Table({ data, distribution, color, ...props }: { data: any[], di
         </Box>
 
         {data.map((row, key) =>
-            <Box key={key} {...row_style(key)}>
+            <Box
+                key={key}
+                {...row_style(key)}
+            >
                 {headers.map((header, index) =>
-                    <Cell key={`${header}-${key}`} index={index}>
-                        <Text color={color?.[index]}>
+                    <Cell
+                        index={index}
+                        key={`${header}-${key}`}
+                    >
+                        <Text color={colors?.[index]}>
                             {row[header]}
                         </Text>
                     </Cell>
