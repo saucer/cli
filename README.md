@@ -13,12 +13,12 @@
 <div align="center"> 
     
 This project hosts the source code of the command line utility.  
-For more information see [our documentation](https://saucer.github.io/docs/getting-started/embedding).
+For more information see [our documentation](https://saucer.github.io/docs/embedding).
 
 </div> 
 
 
-# Installation
+## Installation
 
 <div align="center"> 
 
@@ -28,31 +28,3 @@ For more information see [our documentation](https://saucer.github.io/docs/getti
 <code>sudo yarn global add saucer-app</code>
 
 </div>
-
-# Recommended Usage
-
-It is recommended to use `saucer embed` inside of your build script.
-
-For example in your `package.json`:
-
-```json
-{
-  // ...
-  "scripts": {
-    "build": "<deploy normally> && saucer embed dist"
-  }
-}
-```
-
-# Synopsis
-
-```
-Usage: saucer [options] [command]
-
-Options:
-  -h, --help                    display help for command
-
-Commands:
-  embed <source> [destination]  Generate embedding headers for given files
-  help [command]                display help for command
-```
