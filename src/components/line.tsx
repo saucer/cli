@@ -8,7 +8,7 @@ interface LineProps
     text: string | ColoredText[];
 }
 
-function convert(item: ColoredText)
+export function TextItem({ item }: {item: ColoredText})
 {
     if (typeof item === "string")
     {
@@ -25,7 +25,9 @@ export function Line({ icon, text }: LineProps)
         {" "}
         {
             Array.isArray(text) ?
-                text.map(convert) : convert(text)
+                text.map((item, index) => <TextItem key={index} item={item} />)
+                :
+                <TextItem item={text} />
         }
     </Text>;
 }
