@@ -23,8 +23,9 @@ For more information see [our documentation](https://saucer.github.io/docs/embed
 <div align="center"> 
 
 <img src="https://www.vectorlogo.zone/logos/npmjs/npmjs-ar21.svg" height=20/><br/>
-[Available from npm](https://www.npmjs.com/package/saucer-app) <br/>
-<code>sudo npm i -g saucer-app</code>
-<code>sudo yarn global add saucer-app</code>
+[Available from npm](https://www.npmjs.com/package/@saucer-dev/cli) <br/>
+<code>sudo npm i -g @saucer-dev/cli</code>
+<code>sudo pnpm i -g @saucer-dev/cli</code>
+<code>sudo yarn global add @saucer-dev/cli</code>
 
 </div>
