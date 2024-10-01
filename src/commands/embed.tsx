@@ -8,13 +8,13 @@ import Spinner from "ink-spinner";
 import { fromPromise, fromThrowable } from "neverthrow";
 import path, { dirname, resolve } from "path";
 import { Fragment, ReactNode } from "react";
+import { fileURLToPath } from "url";
 import { Error } from "../components/error.js";
+import { Line } from "../components/line.js";
 import { Table } from "../components/table.js";
 import { File, parse } from "../file.js";
 import theme from "../theme/index.js";
 import { recursiveDirectoryIterator } from "../utils/fs.js";
-import { fileURLToPath } from "url";
-import { Line } from "../components/line.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
