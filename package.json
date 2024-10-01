@@ -4,16 +4,16 @@
 	"keywords": [
 		"saucer"
 	],
-	"version": "5.0.2",
+	"version": "5.0.3",
 	"license": "MIT",
 	"author": "Curve (https://github.com/Curve)",
 	"type": "module",
-	"homepage": "https://github.com/saucer/saucer-cli/",
+	"homepage": "https://github.com/saucer/cli",
 	"engines": {
 		"node": ">=16"
 	},
 	"bugs": {
-		"url": "https://github.com/saucer/saucer-cli/issues"
+		"url": "https://github.com/saucer/cli/issues"
 	},
 	"scripts": {
 		"build": "tsc",
@@ -59,6 +59,6 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/saucer/saucer-cli.git"
+		"url": "https://github.com/saucer/cli.git"
 	}
 }
