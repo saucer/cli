@@ -15,12 +15,11 @@
 This project hosts the source code of the command line utility.  
 For more information see [our documentation](https://saucer.github.io/docs/embedding).
 
-</div> 
-
+</div>
 
 ## Installation
 
-<div align="center"> 
+<div align="center">
 
 <img src="https://www.vectorlogo.zone/logos/npmjs/npmjs-ar21.svg" height=20/><br/>
 [Available from npm](https://www.npmjs.com/package/@saucer-dev/cli) <br/>

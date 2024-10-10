@@ -1,64 +1,58 @@
 {
-	"name": "@saucer-dev/cli",
-	"description": "🛸 A command-line utility for saucer",
-	"keywords": [
-		"saucer"
-	],
-	"version": "5.1.0",
-	"license": "MIT",
-	"author": "Curve (https://github.com/Curve)",
-	"type": "module",
-	"homepage": "https://github.com/saucer/cli",
-	"engines": {
-		"node": ">=16"
-	},
-	"bugs": {
-		"url": "https://github.com/saucer/cli/issues"
-	},
-	"scripts": {
-		"build": "tsc",
-		"copy": "cp -r src/templates build",
-		"bundle": "pnpm run build && pnpm run copy",
-		"bundle:executable": "pnpm run bundle && chmod +x build/index.js"
-	},
-	"bin": {
-		"saucer": "build/index.js"
-	},
-	"files": [
-		"build"
-	],
-	"dependencies": {
-		"commander": "^12.1.0",
-		"eslint-plugin-neverthrow": "^1.1.4",
-		"eta": "^3.4.1",
-		"figures": "^6.1.0",
-		"fs-extra": "^11.2.0",
-		"ink": "^5.0.1",
-		"ink-spinner": "^5.0.0",
-		"mime-types": "^2.1.35",
-		"neverthrow": "^7.0.0",
-		"react": "^18.3.1",
-		"typescript": "^5.5.4"
-	},
-	"devDependencies": {
-		"@sindresorhus/tsconfig": "^6.0.0",
-		"@types/fs-extra": "^11.0.4",
-		"@types/ink-spinner": "^3.0.4",
-		"@types/mime-types": "^2.1.4",
-		"@types/node": "^20.14.15",
-		"@types/react": "^18.3.3",
-		"@typescript-eslint/eslint-plugin": "^8.0.1",
-		"@typescript-eslint/parser": "^8.0.1",
-		"eslint": "^9.9.0",
-		"eslint-plugin-react": "^7.35.0",
-		"eslint-plugin-react-hooks": "^4.6.2"
-	},
-	"publishConfig": {
-		"access": "public",
-		"registry": "https://registry.npmjs.org/"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/saucer/cli.git"
-	}
+  "name": "@saucer-dev/cli",
+  "version": "5.1.0",
+  "license": "MIT",
+  "description": "🛸 A command-line utility for saucer",
+  "author": "Curve (https://github.com/Curve)",
+  "homepage": "https://github.com/saucer/cli",
+  "keywords": [
+    "saucer"
+  ],
+  "bugs": {
+    "url": "https://github.com/saucer/cli/issues"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=16"
+  },
+  "scripts": {
+    "build": "tsc",
+    "copy": "cp -r src/templates build",
+    "bundle": "pnpm run build && pnpm run copy",
+    "bundle:executable": "pnpm run bundle && chmod +x build/index.js"
+  },
+  "bin": {
+    "saucer": "build/index.js"
+  },
+  "files": [
+    "build"
+  ],
+  "dependencies": {
+    "commander": "^12.1.0",
+    "eslint-plugin-neverthrow": "^1.1.4",
+    "eta": "^3.5.0",
+    "figures": "^6.1.0",
+    "fs-extra": "^11.2.0",
+    "mime-types": "^2.1.35",
+    "neverthrow": "^7.2.0",
+    "ora": "^8.1.0",
+    "typescript": "^5.6.3"
+  },
+  "devDependencies": {
+    "@sindresorhus/tsconfig": "^6.0.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/mime-types": "^2.1.4",
+    "@types/node": "^20.16.11",
+    "@typescript-eslint/eslint-plugin": "^8.8.1",
+    "@typescript-eslint/parser": "^8.8.1",
+    "eslint": "^9.12.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saucer/cli.git"
+  }
 }

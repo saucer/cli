@@ -1,7 +1,10 @@
 import { readdir } from "fs/promises";
-import { resolve, relative } from "path";
+import { relative, resolve } from "path";
 
-export async function* recursiveDirectoryIterator(path: string, root: string = path): AsyncGenerator<{absolute: string, relative: string}>
+export async function* recursiveDirectoryIterator(
+    path: string,
+    root: string = path,
+): AsyncGenerator<{ absolute: string; relative: string }>
 {
     const entries = await readdir(path, { withFileTypes: true });
 
@@ -12,8 +15,7 @@ export async function* recursiveDirectoryIterator(path: string, root: string = p
         if (entry.isDirectory())
         {
             yield* recursiveDirectoryIterator(rtn, root);
-        }
-        else
+        } else
         {
             yield { absolute: rtn, relative: relative(root, rtn) };
         }

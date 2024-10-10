@@ -1,21 +1,17 @@
 {
-	"compilerOptions": {
-		"outDir": "build",
-		"target": "ESNext",
-		"module": "NodeNext",
-		"lib": [
-			"dom",
-			"ES2023",
-		],
-		"strict": true,
-		"strictNullChecks": true,
-		"jsx": "react-jsx",
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"noImplicitReturns": true,
-		"moduleResolution": "NodeNext",
-		"esModuleInterop": true,
-		"skipLibCheck": true,
-		"skipDefaultLibCheck": true,
-	},
+  "compilerOptions": {
+    "outDir": "build",
+    "target": "ESNext",
+    "module": "NodeNext",
+    "lib": ["ES2023"],
+    "strict": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true
+  }
 }

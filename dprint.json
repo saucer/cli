@@ -1,0 +1,16 @@
+{
+  "typescript": {
+    "module.sortImportDeclarations": "maintain",
+    "quoteStyle": "preferDouble",
+    "bracePosition": "nextLine",
+    "indentWidth": 4
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "bracketSameLine": false
+  },
+  "plugins": [
+    "https://plugins.dprint.dev/typescript-0.93.0.wasm",
+    "https://plugins.dprint.dev/prettier-0.46.1.json@e5bd083088a8dfc6e5ce2d3c9bee81489b065bd5345ef55b59f5d96627928b7a"
+  ]
+}
