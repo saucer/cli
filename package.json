@@ -1,6 +1,6 @@
 {
   "name": "@saucer-dev/cli",
-  "version": "5.1.0",
+  "version": "6.0.0",
   "license": "MIT",
   "description": "🛸 A command-line utility for saucer",
   "author": "Curve (https://github.com/Curve)",
