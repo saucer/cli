@@ -1,16 +1,14 @@
 import { Eta } from "eta";
-import { existsSync, lstatSync, statSync } from "fs";
-import extra from "fs-extra";
-import { mkdir } from "fs/promises";
-import { fromPromise, fromThrowable } from "neverthrow";
+import { statSync } from "fs";
+import { exists, outputFile } from "fs-extra";
+import { lstat, mkdir } from "fs/promises";
+import { fromPromise } from "neverthrow";
+import ora from "ora";
 import { dirname, join, resolve } from "path";
 import { exit } from "process";
 import { fileURLToPath } from "url";
 import { File, parse } from "../file.js";
 import { recursiveDirectoryIterator } from "../utils/fs.js";
-import ora from "ora";
-
-const { outputFileSync } = extra;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -20,7 +18,7 @@ export async function embed(source: string, destination: string)
     const eta = new Eta({ views: join(__dirname, "..", "templates") });
     const as_str = (error: unknown) => error as string;
 
-    if (!existsSync(destination))
+    if (!await exists(destination))
     {
         const result = await fromPromise(mkdir(destination, { recursive: true }), as_str);
 
@@ -31,7 +29,7 @@ export async function embed(source: string, destination: string)
         }
     }
 
-    if (!existsSync(source) || !lstatSync(source).isDirectory())
+    if (!await exists(source) || !(await lstat(source)).isDirectory())
     {
         console.error(`Expected '${source}' to be a directory`);
         return exit(1);
@@ -42,7 +40,7 @@ export async function embed(source: string, destination: string)
     for await (const { absolute, relative } of recursiveDirectoryIterator(source))
     {
         const spinner = ora({ color: "magenta", text: `Embedding '${relative}'...` }).start();
-        const file = parse(absolute, relative);
+        const file = await parse(absolute, relative);
 
         if (file.isErr())
         {
@@ -51,7 +49,6 @@ export async function embed(source: string, destination: string)
         }
 
         const target = resolve(destination, `${relative}.hpp`);
-        const writeFile = fromThrowable(outputFileSync, as_str);
 
         const content = eta.render("embed", {
             name: file.value.name,
@@ -59,7 +56,7 @@ export async function embed(source: string, destination: string)
             size: file.value.size,
         });
 
-        const result = writeFile(target, content);
+        const result = await fromPromise(outputFile(target, content), as_str);
 
         if (result.isErr())
         {

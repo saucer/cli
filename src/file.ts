@@ -1,6 +1,7 @@
-import { existsSync, lstatSync, readFileSync } from "fs";
+import { exists } from "fs-extra";
+import { lstat, readFile } from "fs/promises";
 import mimes from "mime-types";
-import { err, ok, Result } from "neverthrow";
+import { err, fromPromise, ok, Result } from "neverthrow";
 
 export interface File
 {
@@ -11,14 +12,14 @@ export interface File
     size: number;
 }
 
-export function parse(absolute: string, relative: string): Result<File, string>
+export async function parse(absolute: string, relative: string): Promise<Result<File, string>>
 {
-    if (!existsSync(absolute))
+    if (!await exists(absolute))
     {
         return err("file does not exist");
     }
 
-    if (!lstatSync(absolute).isFile())
+    if (!(await lstat(absolute)).isFile())
     {
         return err("not a file");
     }
@@ -30,13 +31,18 @@ export function parse(absolute: string, relative: string): Result<File, string>
         return err("could not determine mime");
     }
 
-    const stream = readFileSync(absolute);
+    const stream = await fromPromise(readFile(absolute), err => err as string);
+
+    if (!stream.isOk())
+    {
+        return err(stream.error);
+    }
 
     const path = relative.replace(/\\/g, "/");
     const name = relative.replace(/[^a-z]/ig, "_");
 
-    const size = stream.byteLength;
-    const data = [...stream].map(b => `0x${b.toString(16)}`).join(", ");
+    const size = stream.value.byteLength;
+    const data = [...stream.value].map(b => `0x${b.toString(16)}`).join(", ");
 
     return ok({ path, mime, name, data, size });
 }
