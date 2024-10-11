@@ -15,14 +15,10 @@ const { outputFileSync } = extra;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-function as_str(error: unknown)
-{
-    return error as string;
-}
-
 export async function embed(source: string, destination: string)
 {
     const eta = new Eta({ views: join(__dirname, "..", "templates") });
+    const as_str = (error: unknown) => error as string;
 
     if (!existsSync(destination))
     {
@@ -82,5 +78,11 @@ export async function embed(source: string, destination: string)
         "Size (KB)": (statSync(path).size / 1024),
     }));
 
+    if (table.length === 0)
+    {
+        return;
+    }
+
+    console.log();
     console.table(table, ["File", "Mime", "Header", "Size (KB)"]);
 }
