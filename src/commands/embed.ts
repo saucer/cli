@@ -68,6 +68,17 @@ export async function embed(source: string, destination: string)
         files.push([target, file.value]);
     }
 
+    const content = eta.render("all", { files: files.map(x => x[1]) });
+    const target = resolve(destination, "all.hpp");
+
+    const result = await fromPromise(outputFile(target, content), as_str);
+
+    if (result.isErr())
+    {
+        console.error(`Failed to write: ${target} (${result.error})`);
+        return exit(1);
+    }
+
     const table = files.map(([path, file]) => ({
         File: file.path,
         Mime: file.mime,
