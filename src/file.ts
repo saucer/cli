@@ -1,3 +1,4 @@
+import base62 from "base62";
 import { exists } from "fs-extra";
 import { lstat, readFile } from "fs/promises";
 import mimes from "mime-types";
@@ -39,7 +40,7 @@ export async function parse(absolute: string, relative: string): Promise<Result<
     }
 
     const path = relative.replace(/\\/g, "/");
-    const name = relative.replace(/[^a-z]/ig, "_");
+    const name = `f${base62.encode(parseInt([...relative].map(x => x.charCodeAt(0)).join("")))}`;
 
     const size = stream.value.byteLength;
     const data = [...stream.value].map(b => `0x${b.toString(16)}`).join(", ");
