@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      base62:
-        specifier: ^2.0.2
-        version: 2.0.2
+      base-x:
+        specifier: ^5.0.0
+        version: 5.0.0
       commander:
         specifier: ^12.1.0
         version: 12.1.0
@@ -247,9 +247,8 @@ packages:
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
-  base62@2.0.2:
-    resolution: {integrity: sha512-FLoAQzMpmdDBei0u7fUAQzVCxoH6g4pueCIuGDoCZVZCiCeW4qTKpEGB79jkS15VB8b/5EIHc4R+WSKTByM+dw==}
-    engines: {node: '>=6.0.0'}
+  base-x@5.0.0:
+    resolution: {integrity: sha512-sMW3VGSX1QWVFA6l8U62MLKz29rRfpTlYdCqLdpLo1/Yd4zZwSbnUaDfciIAowAqvq7YFnWq9hrhdg1KYgc1lQ==}
 
   brace-expansion@1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
@@ -914,7 +913,7 @@ snapshots:
 
   balanced-match@1.0.2: {}
 
-  base62@2.0.2: {}
+  base-x@5.0.0: {}
 
   brace-expansion@1.1.11:
     dependencies:

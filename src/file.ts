@@ -1,4 +1,4 @@
-import base62 from "base62";
+import basex from "base-x";
 import { exists } from "fs-extra";
 import { lstat, readFile } from "fs/promises";
 import mimes from "mime-types";
@@ -12,6 +12,8 @@ export interface File
     data: string;
     size: number;
 }
+
+const base62 = basex("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
 
 export async function parse(absolute: string, relative: string): Promise<Result<File, string>>
 {
@@ -40,7 +42,7 @@ export async function parse(absolute: string, relative: string): Promise<Result<
     }
 
     const path = relative.replace(/\\/g, "/");
-    const name = `f${base62.encode(parseInt([...relative].map(x => x.charCodeAt(0)).join("")))}`;
+    const name = `f${base62.encode(Buffer.from(absolute))}`;
 
     const size = stream.value.byteLength;
     const data = [...stream.value].map(b => `0x${b.toString(16)}`).join(", ");

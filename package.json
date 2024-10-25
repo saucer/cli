@@ -1,6 +1,6 @@
 {
   "name": "@saucer-dev/cli",
-  "version": "6.1.0",
+  "version": "6.1.1",
   "license": "MIT",
   "description": "🛸 A command-line utility for saucer",
   "author": "Curve (https://github.com/Curve)",
@@ -28,7 +28,7 @@
     "build"
   ],
   "dependencies": {
-    "base62": "^2.0.2",
+    "base-x": "^5.0.0",
     "commander": "^12.1.0",
     "eslint-plugin-neverthrow": "^1.1.4",
     "eta": "^3.5.0",
