@@ -5,17 +5,10 @@
 </div>
 
 <p align="center"> 
-    Build cross-platform desktop apps with C++ & Web Technologies 
+    A command line utility for <a href="https://github.com/saucer/saucer">saucer</a>
 </p>
 
 ---
-
-<div align="center"> 
-    
-This project hosts the source code of the command line utility.  
-For more information see [our documentation](https://saucer.github.io/docs/embedding).
-
-</div>
 
 ## Installation
 
