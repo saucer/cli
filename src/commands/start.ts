@@ -20,6 +20,8 @@ export async function start(command: string, executable: string, args: string[])
 
         executable_child.stdout?.pipe(process.stdout);
         executable_child.stderr?.pipe(process.stderr);
+
+        executable_child.on("exit", () => command_child.kill());
     });
 
     command_child.stdout?.pipe(process.stdout);
