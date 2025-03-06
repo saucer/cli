@@ -1,6 +1,6 @@
 {
   "name": "@saucer-dev/cli",
-  "version": "6.1.1",
+  "version": "6.2.0",
   "license": "MIT",
   "description": "🛸 A command-line utility for saucer",
   "author": "Curve (https://github.com/Curve)",
@@ -33,20 +33,20 @@
     "eslint-plugin-neverthrow": "^1.1.4",
     "eta": "^3.5.0",
     "figures": "^6.1.0",
-    "fs-extra": "^11.2.0",
+    "fs-extra": "^11.3.0",
     "mime-types": "^2.1.35",
     "neverthrow": "^7.2.0",
-    "ora": "^8.1.0",
-    "typescript": "^5.6.3"
+    "ora": "^8.2.0",
+    "typescript": "^5.8.2"
   },
   "devDependencies": {
     "@sindresorhus/tsconfig": "^6.0.0",
     "@types/fs-extra": "^11.0.4",
     "@types/mime-types": "^2.1.4",
-    "@types/node": "^20.16.11",
-    "@typescript-eslint/eslint-plugin": "^8.8.1",
-    "@typescript-eslint/parser": "^8.8.1",
-    "eslint": "^9.12.0"
+    "@types/node": "^20.17.23",
+    "@typescript-eslint/eslint-plugin": "^8.26.0",
+    "@typescript-eslint/parser": "^8.26.0",
+    "eslint": "^9.21.0"
   },
   "publishConfig": {
     "access": "public",
